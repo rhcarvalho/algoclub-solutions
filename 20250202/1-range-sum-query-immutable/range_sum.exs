@@ -13,11 +13,8 @@ end
 
 defmodule RangeSum do
   def new(nums) do
-    nums
-    |> Enum.reduce([0], fn
-      n, [previous | _] = acc -> [n + previous | acc]
-    end)
-    |> Enum.reverse()
+    [0 | nums]
+    |> Enum.scan(&+/2)
     |> List.to_tuple()
   end
 

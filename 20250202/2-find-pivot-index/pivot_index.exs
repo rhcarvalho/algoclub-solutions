@@ -68,11 +68,8 @@ defmodule PivotIndex do
 
   def find_fast(nums) do
     range_sum =
-      nums
-      |> Enum.reduce([0], fn
-        n, [previous | _] = acc -> [n + previous | acc]
-      end)
-      |> Enum.reverse()
+      [0 | nums]
+      |> Enum.scan(&+/2)
       |> List.to_tuple()
 
     0..(length(nums) - 1)
