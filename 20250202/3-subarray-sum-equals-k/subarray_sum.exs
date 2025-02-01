@@ -43,6 +43,16 @@ defmodule SubarraySumTest do
     """
     |> Logger.info()
   end
+
+  test "find_problem" do
+    1..100
+    |> Enum.each(fn _ ->
+      nums = Enum.map(1..1000, fn _ -> Enum.random(-100..100) end)
+      k = Enum.random(-1000..1000)
+
+      assert SubarraySum.count(nums, k) == SubarraySum.count_single_pass(nums, k)
+    end)
+  end
 end
 
 defmodule SubarraySum do
