@@ -17,10 +17,17 @@ defmodule SpecialArray do
   import Integer, only: [mod: 2]
 
   def new(nums) do
+    # The idea here is to "color" the array based on the parity of the elements.
+    # If the parity of the element is the same as the previous element, the
+    # color remains the same, otherwise it changes.
+    # By precomputing that, we can answer queries in O(1) time by checking if
+    # the "color" of the first and last element of the range is the same, that
+    # is, if they fall within the same "color" group.
     nums
     |> Enum.reduce({0, 0, []}, fn
       n, {color, last, colors} ->
         parity = mod(n, 2)
+        # color += (parity == last ? 1 : 0)
         color = color + bnot(bxor(parity, last)) &&& 1
         {color, parity, [color | colors]}
     end)
