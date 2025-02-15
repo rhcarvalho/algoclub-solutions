@@ -21,7 +21,7 @@ end
 defmodule Tribonacci do
   def nth(n) do
     for _ <- 3..n//1, reduce: [1, 1, 0] do
-      [a, b, c | _] = acc -> [a + b + c | acc]
+      [a, b, c | _] -> [a + b + c, a, b]
     end
     |> Enum.drop(max(0, 2 - n))
     |> hd()
