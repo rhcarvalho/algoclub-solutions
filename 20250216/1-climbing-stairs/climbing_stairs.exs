@@ -18,5 +18,11 @@ end
 defmodule ClimbingStairs do
   def count(1), do: 1
   def count(2), do: 2
-  def count(n), do: count(n - 1) + count(n - 2)
+
+  def count(n) do
+    for _ <- 3..n, reduce: [2, 1] do
+      [count_n_minus_1, count_n_minus_2 | _] = acc -> [count_n_minus_1 + count_n_minus_2 | acc]
+    end
+    |> hd()
+  end
 end
