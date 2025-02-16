@@ -7,6 +7,10 @@ defmodule EarnTest do
     assert Earn.max([3, 4, 2]) == 6
     assert Earn.max([2, 2, 3, 3, 3, 4]) == 9
   end
+
+  test "more" do
+    assert Earn.max([3, 3, 3, 3, 1, 10]) == 23
+  end
 end
 
 defmodule Earn do
@@ -58,8 +62,8 @@ defmodule Earn do
       end
 
     for c <- 1..max_n, reduce: [0, 0] do
-      [b, a] -> [Map.get(prizes, c, 0) + a, b]
+      [b, a] -> [max(Map.get(prizes, c, 0) + a, b), b]
     end
-    |> Enum.max()
+    |> hd()
   end
 end
